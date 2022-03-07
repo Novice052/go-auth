@@ -1,12 +1,16 @@
 package main
 
 import (
-	"./database"
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func main() {
-	database.Connect()
+	_, err := gorm.Open(postgres.Open("host=localhost user=postgres password=postgres dbname=postgres"), &gorm.Config{})
+	if err != nil {
+		panic("Could not connect to the database.")
+	}
 
 	app := fiber.New()
 
